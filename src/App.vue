@@ -1,9 +1,14 @@
 <template>
-  <h1>Hello!</h1>
+  <h1>{{text}}</h1>
 </template>
 
 <script>
   export default {
-    name: "app"
+    name: "app",
+    data(){
+      return {
+        text: "Шляпа!"
+      }
+    }
   }
 </script>
