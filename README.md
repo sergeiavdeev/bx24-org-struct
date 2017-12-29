@@ -1,4 +1,4 @@
-# bx24-control-panel
+# bx24-org-struct
 
 > A Vue.js project
 
