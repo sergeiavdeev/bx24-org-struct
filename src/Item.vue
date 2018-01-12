@@ -3,7 +3,7 @@
     <div @click="onclick" :class="item.children && item.children.length > 0 ? 'click' : ''">
       {{item.name}}
     </div>
-    <ul v-show="isOpen">
+    <ul v-show="open">
       <item v-for="item in item.children" :item="item" :key="item.key"></item>
     </ul>
   </li>
@@ -17,12 +17,12 @@
     ],
     data(){
       return {
-        isOpen: false
+        open: false
       }
     },
     methods: {
       onclick (){
-        this.isOpen = !this.isOpen;
+        this.open = !this.open;
       }
     }
   }
