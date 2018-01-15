@@ -1,7 +1,7 @@
 <template>
   <li>
     <div @click="onclick" :class="item.children && item.children.length > 0 ? 'click' : ''">
-      {{item.name}}
+      {{item.NAME}}
     </div>
     <ul v-show="open">
       <item v-for="item in item.children" :item="item" :key="item.key"></item>
