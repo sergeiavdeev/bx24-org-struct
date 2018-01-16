@@ -33,6 +33,7 @@
   .click{
     cursor: pointer;
     text-decoration: underline;
+    user-select: none;
   }
 
 </style>
