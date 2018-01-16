@@ -72,7 +72,7 @@
             resolve(item);
           }
 
-          reject();
+          reject("Елемент родитель не найден!");
         });
       },
       findDepartament (item, id) {
