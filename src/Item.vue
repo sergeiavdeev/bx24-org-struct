@@ -4,7 +4,7 @@
       {{item.NAME}}
     </div>
     <transition-group name="fade">
-    <ul v-show="open" :key="0">
+    <ul v-show="open" key="item.ID">
       <item v-for="item in item.children" :item="item" :key="item.ID" v-on:add="onAdd"></item>
       <li @click="add" :class="'click'" :key="-1">+</li>
     </ul>
