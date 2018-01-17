@@ -13,7 +13,8 @@
     name: "tree",
     data () {
       return {
-        items: items
+        items: Object,
+        id: 15
       }
     },
     components: {
@@ -21,6 +22,7 @@
     },
     mounted () {
       if (!window.BX24) {
+        this.items = items;
         return;
       }
       this.getDepartaments("")
@@ -28,13 +30,13 @@
           console.log("Успешно!");
           console.log(res);
           this.items = {
+            ID: res[0].ID,
             NAME: res[0].NAME
           };
           this.getDepartaments(res[0].ID)
             .then( (res) => {
               console.log(res);
-              this.items.children = res;
-
+              this.$set(this.items, "children", res);
             })
         })
         .catch( (err) => {
@@ -66,9 +68,10 @@
 
           if (item) {
             if (!item.children) {
-              item.children = [];
+              this.$set(item, "children", []);
             }
-            item.children.push({ID: -1, NAME: name});
+            item.children.push({ID: this.id, NAME: name});
+            this.id ++;
             resolve(item);
           }
 

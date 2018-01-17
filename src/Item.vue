@@ -4,7 +4,7 @@
       {{item.NAME}}
     </div>
     <ul v-show="open">
-      <item v-for="item in item.children" :item="item" :key="item.key" v-on:add="onAdd"></item>
+      <item v-for="item in item.children" :item="item" :key="item.ID" v-on:add="onAdd"></item>
       <li @click="add" :class="'click'">+</li>
     </ul>
   </li>
