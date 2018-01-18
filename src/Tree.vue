@@ -13,7 +13,10 @@
     name: "tree",
     data () {
       return {
-        items: Object,
+        items: {
+          ID: "",
+          NAME: ""
+        },
         id: 15
       }
     },

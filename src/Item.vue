@@ -3,12 +3,12 @@
     <div @click="onclick" :class="item.children && item.children.length > 0 ? 'click' : ''">
       {{item.NAME}}
     </div>
-    <transition-group name="fade">
+    <!--<transition-group name="fade"> -->
     <ul v-show="open" key="item.ID">
       <item v-for="item in item.children" :item="item" :key="item.ID" v-on:add="onAdd"></item>
       <li @click="add" :class="'click'" :key="-1">+</li>
     </ul>
-    </transition-group>
+    <!--</transition-group>-->
   </li>
 </template>
 
