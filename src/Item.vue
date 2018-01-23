@@ -1,12 +1,12 @@
 <template>
   <li>
-    <div @click="onclick" :class="item.children && item.children.length > 0 ? 'click' : ''">
+    <div :class="item.children && item.children.length > 0 ? 'click' : ''">
       {{item.NAME}}
     </div>
     <!--<transition-group name="fade"> -->
-    <ul v-show="open" key="item.ID">
-      <item v-for="item in item.children" :item="item" :key="item.ID" v-on:add="onAdd"></item>
-      <li @click="add" :class="'click'" :key="-1">+</li>
+    <ul v-show="open && children.length > 0" key="item.ID">
+      <item v-for="item in children" :item="item" :key="item.ID"></item>
+      <li :class="'click'" :key="-1">+</li>
     </ul>
     <!--</transition-group>-->
   </li>
@@ -20,19 +20,37 @@
     ],
     data(){
       return {
-        open: false
+        open: true,
+        children: []
       }
     },
     methods: {
-      onclick (){
-        this.open = !this.open;
-      },
-      add () {
-        this.$emit("add", this.item.ID);
-      },
-      onAdd (id) {
-        this.$emit("add", id);
+      getDepartaments: function (parentDep) {
+
+        return new Promise((resolve, reject) => {
+
+          BX24.callMethod('department.get',
+            {"PARENT": parentDep},
+            function (result) {
+              if (result.data()) {
+                resolve (result.data());
+              }
+              reject (result.error());
+            }
+          )
+        })
       }
+    },
+    mounted () {
+      if (!window.BX24) {
+        return;
+      }
+
+      this.getDepartaments(this.item.ID)
+        .then( (res) => {
+          console.log(res);
+          this.children = res;
+        });
     }
   }
 </script>

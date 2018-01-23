@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <item :item="items" v-on:add="onAdd"></item>
+    <item v-if="root.ID != ''" :item="root"></item>
   </ul>
 </template>
 
@@ -13,8 +13,8 @@
     name: "tree",
     data () {
       return {
-        items: {
-          ID: "",
+        root: {
+          ID: '',
           NAME: ""
         },
         id: 15
@@ -25,22 +25,21 @@
     },
     mounted () {
       if (!window.BX24) {
-        this.items = items;
+        //this.root = items;
+        this.root = {
+          ID: "1",
+          NAME: "Моя компания"
+        }
         return;
       }
       this.getDepartaments("")
         .then( (res) => {
           console.log("Успешно!");
           console.log(res);
-          this.items = {
+          this.root = {
             ID: res[0].ID,
             NAME: res[0].NAME
           };
-          this.getDepartaments(res[0].ID)
-            .then( (res) => {
-              console.log(res);
-              this.$set(this.items, "children", res);
-            })
         })
         .catch( (err) => {
           console.log("Ошибка!");
@@ -109,16 +108,6 @@
         }
 
         return result;
-      },
-      onAdd(id) {
-        console.log("Tree add, parent" + id);
-        this.addDepartament(id, "Новый элемент")
-          .then( (item) => {
-            console.log("Успешно: " + item);
-          })
-          .catch( (err) => {
-            console.log("Неудача: " + err);
-          })
       }
     }
   }
